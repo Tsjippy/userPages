@@ -5,6 +5,7 @@
 
 ### Changed
 - readme
+- redering of asset urls
 
 ### Fixed
 
