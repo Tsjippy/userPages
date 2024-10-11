@@ -1,5 +1,5 @@
 <?php
-namespace SIM\USERPAGE;
+namespace SIM\USERPAGES;
 use SIM;
 
 //Shortcode to download all contact info

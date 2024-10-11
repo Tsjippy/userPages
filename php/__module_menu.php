@@ -1,5 +1,5 @@
 <?php
-namespace SIM\USERPAGE;
+namespace SIM\USERPAGES;
 use SIM;
 
 const MODULE_VERSION		= '8.0.0';

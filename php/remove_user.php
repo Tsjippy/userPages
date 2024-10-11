@@ -1,5 +1,5 @@
 <?php
-namespace SIM\USERPAGE;
+namespace SIM\USERPAGES;
 use SIM;
 
 add_action('delete_user', function ($userId){

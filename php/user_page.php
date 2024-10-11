@@ -1,5 +1,5 @@
 <?php
-namespace SIM\USERPAGE;
+namespace SIM\USERPAGES;
 use SIM;
 
 /**
@@ -639,7 +639,7 @@ function getUserPageUrl($userId){
  * @param	int			$userId		WP_user id
  */
 function showContent($userId){
-	wp_enqueue_style( 'sim_show_user_content_style', plugins_url('css/usercontent.min.css', __DIR__), array(), MODULE_VERSION);
+	wp_enqueue_style( 'sim_show_user_content_style', SIM\pathToUrl(MODULE_PATH.'css/usercontent.min.css'), array(), MODULE_VERSION);
 
 	$posts = get_posts(
 		array(
