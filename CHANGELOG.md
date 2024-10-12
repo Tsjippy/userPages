@@ -6,6 +6,7 @@
 ### Changed
 
 ### Fixed
+- bug form display filter
 
 ### Updated
 
