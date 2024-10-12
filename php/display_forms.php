@@ -3,14 +3,13 @@ namespace SIM\USERPAGES;
 use SIM;
 
 add_filter('sim_transform_formtable_data', function($string, $elementName){
-    $output=$string;
     if($elementName == 'userid'){
 			
         $output				= getUserPageLink($string);
-        if(!$output){
-            $output	= $string;
+        if($output){
+            $string	= $output;
         }
     }
 
-    return $output;
+    return $string;
 }, 10, 2);
