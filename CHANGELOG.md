@@ -6,9 +6,14 @@
 ### Changed
 
 ### Fixed
-- bug form display filter
 
 ### Updated
+
+## [8.0.3] - 2024-10-12
+
+
+### Fixed
+- bug form display filter
 
 ## [8.0.2] - 2024-10-11
 
