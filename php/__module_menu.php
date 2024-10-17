@@ -24,7 +24,7 @@ add_filter('sim_submenu_description', function($description, $moduleSlug){
 		</p>
 		<?php
 	}
-	return ob_get_clean();
+	return $description.ob_get_clean();
 }, 10, 2);
 
 add_filter('sim_module_updated', function($options, $moduleSlug, $oldOptions){
