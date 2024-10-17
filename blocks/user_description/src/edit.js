@@ -1,5 +1,4 @@
 import { __ } from '@wordpress/i18n';
-import './editor.scss';
 import apiFetch from "@wordpress/api-fetch";
 import {useState, useEffect} from "@wordpress/element";
 import {SearchControl, RadioControl, ToggleControl, Panel, PanelBody, Spinner, __experimentalInputControl as InputControl} from "@wordpress/components";
