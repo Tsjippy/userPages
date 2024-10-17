@@ -2,12 +2,21 @@
 ## [Unreleased] - yyyy-mm-dd
 
 ### Added
+
+### Changed
+
+### Fixed
+
+### Updated
+
+## [8.05] - 2024-10-17
+
+
+### Added
 - events filter
 
 ### Changed
 - readme
-
-### Fixed
 
 ### Updated
 - blocks
