@@ -85,7 +85,7 @@ function createUserPage($userId){
  *
  * @param	int|object	$user	WP_User or WP_user id
  *
- * @return	string				Html link
+ * @return	string|false		Html link or false if no user
  */
 function getUserPageLink($user){
     if(is_numeric($user)){
