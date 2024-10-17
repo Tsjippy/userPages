@@ -5,6 +5,7 @@
 - events filter
 
 ### Changed
+- readme
 
 ### Fixed
 
