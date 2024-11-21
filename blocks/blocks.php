@@ -2,7 +2,8 @@
 namespace SIM\USERPAGES;
 use SIM;
 
-add_action('init', function () {
+add_action('init', __NAMESPACE__.'\blockInit');
+function blockInit() {
 	register_block_type(
 		__DIR__ . '/user_description/build',
 		array(
@@ -30,4 +31,4 @@ add_action('init', function () {
 			]
 		)
 	);
-});
+}

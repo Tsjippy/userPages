@@ -3,7 +3,8 @@ namespace SIM\USERPAGES;
 use SIM;
 
 //Shortcode to download all contact info
-add_shortcode("all_contacts", function (){
+add_shortcode("all_contacts", __NAMESPACE__.'\allContacts');
+function allContacts(){
 	$shouldDie	= true;
 
 	// get last download time
@@ -168,7 +169,7 @@ add_shortcode("all_contacts", function (){
 	
 	<?php
 	return ob_get_clean();
-});
+}
 
 // Shortcode to display a user in a page or post
 add_shortcode('user_link', __NAMESPACE__.'\linkedUserDescription');
@@ -374,7 +375,7 @@ function buildUserDetailPdf($download=true){
 		$userDetails[] 	= [$name, $email, $phonenumbers, $ministries, $location];
 
 		// create a seperate row for each phonenumber and ministry
-/* 		$rows			= max(count($phonenumbers), count($ministries), 1);
+		/* 		$rows			= max(count($phonenumbers), count($ministries), 1);
 		for ($x = 0; $x < $rows; $x++) {
 			$phonenumber	= '';
 			if(isset($phonenumbers[$x])){

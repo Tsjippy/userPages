@@ -1,7 +1,8 @@
 <?php
 namespace SIM\USERPAGES;
 
-add_filter('sim_transform_formtable_data', function($string, $elementName){
+add_filter('sim_transform_formtable_data', __NAMESPACE__.'\formtableData', 10, 2);
+function formtableData($string, $elementName){
     if($elementName == 'userid'){
 			
         $output				= getUserPageLink($string);
@@ -11,4 +12,4 @@ add_filter('sim_transform_formtable_data', function($string, $elementName){
     }
 
     return $string;
-}, 10, 2);
+}

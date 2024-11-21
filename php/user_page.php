@@ -588,7 +588,8 @@ function addMinistryLinks($userId){
 }
 
 // Add description if the current page is attached to a user id
-add_filter( 'the_content', function ( $content ) {
+add_filter( 'the_content', __NAMESPACE__.'\addUserDescription');
+function addUserDescription( $content ) {
 	if (is_user_logged_in()){
 		$postId 	= get_the_ID();
 
@@ -600,7 +601,7 @@ add_filter( 'the_content', function ( $content ) {
 	}
 
 	return $content;
-});
+}
 
 /**
  * Gets the page id describing an user

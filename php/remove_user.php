@@ -2,7 +2,8 @@
 namespace SIM\USERPAGES;
 use SIM;
 
-add_action('delete_user', function ($userId){
+add_action('delete_user', __NAMESPACE__.'\userDeleted');
+function userDeleted($userId){
     $partner = SIM\hasPartner($userId, true);
 
 	//Only remove if there is no family
@@ -21,4 +22,4 @@ add_action('delete_user', function ($userId){
         //Update
         updateUserPageTitle($partner->ID, $title);
     }
-});
+}
