@@ -208,31 +208,30 @@ function linkedUserDescription($atts){
 	
 	$html = "<div $style>";
 	
-	$nickname 		= get_user_meta($userId, 'nickname', true);
-	$displayName 	= "(".$userdata->display_name.")";
-	if($userdata->display_name == $nickname){
-		$displayName = '';
-	}
-	$privacyPreference = (array)get_user_meta( $userId, 'privacy_preference', true );
-	
-	$url = SIM\maybeGetUserPageUrl($userId);
-	
-	$profilePicture	= '';
-	if($a['picture'] && !isset($privacyPreference['hide_profile_picture'])){
-		$profilePicture = SIM\displayProfilePicture($userId);
-	}
-	$html .= "<a href='$url'>$profilePicture $nickname $displayName</a><br>";
-	
-	$html .= "<p style='margin-top:1.5em;'>";
-	if($a['email']){
-		$html .= "E-mail: <a href='mailto:$email'>$email</a><br>";
-	}
+		$nickname 		= get_user_meta($userId, 'nickname', true);
+		$displayName 	= "($userdata->display_name)";
+		if($userdata->display_name == $nickname){
+			$displayName 	= '';
+		}
+		$privacyPreference 	= (array)get_user_meta( $userId, 'privacy_preference', true );
 		
-	if($a['phone']){
-		$html .= showPhonenumbers($userId, true);
-	}
-
-	$html .= "</p>";
+		$url 				= SIM\maybeGetUserPageUrl($userId);
+		
+		$profilePicture	= '';
+		if($a['picture'] && !isset($privacyPreference['hide_profile_picture'])){
+			$profilePicture = SIM\displayProfilePicture($userId);
+		}
+		$html .= "<a href='$url'>$profilePicture $nickname $displayName</a><br>";
+		
+		$html .= "<p style='margin-top:1.5em;'>";
+			if($a['email']){
+				$html .= "E-mail: <a href='mailto:$email'>$email</a><br>";
+			}
+				
+			if($a['phone']){
+				$html .= showPhonenumbers($userId, true);
+			}
+		$html .= "</p>";
 
 	return $html."</div>";
 }
