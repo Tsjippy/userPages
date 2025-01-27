@@ -2,13 +2,18 @@
 ## [Unreleased] - yyyy-mm-dd
 
 ### Added
-- filter for user id
 
 ### Changed
 
 ### Fixed
 
 ### Updated
+
+## [8.0.7] - 2025-01-27
+
+
+### Added
+- filter for user id
 
 ## [8.0.6] - 2024-11-21
 
