@@ -192,6 +192,13 @@ function linkedUserDescription($atts){
     if(!is_numeric($userId)){
 		return 'Please enter an user to show the details of';
 	}
+
+	$userdata		= get_userdata($userId);
+	$email			= $userdata->user_email;
+
+	$userId			= apply_filters('sim-user-description-user-id', $userId);
+
+	$userdata		= get_userdata($userId);
 	
 	if(!empty($a['style'])){
 		$style = "style='".$a['style']."'";
@@ -201,7 +208,6 @@ function linkedUserDescription($atts){
 	
 	$html = "<div $style>";
 	
-	$userdata		= get_userdata($userId);
 	$nickname 		= get_user_meta($userId, 'nickname', true);
 	$displayName 	= "(".$userdata->display_name.")";
 	if($userdata->display_name == $nickname){
@@ -217,13 +223,17 @@ function linkedUserDescription($atts){
 	}
 	$html .= "<a href='$url'>$profilePicture $nickname $displayName</a><br>";
 	
+	$html .= "<p style='margin-top:1.5em;'>";
 	if($a['email']){
-		$html .= '<p style="margin-top:1.5em;">E-mail: <a href="mailto:'.$userdata->user_email.'">'.$userdata->user_email.'</a></p>';
+		$html .= "E-mail: <a href='mailto:$email'>$email</a><br>";
 	}
 		
 	if($a['phone']){
-		$html .= showPhonenumbers($userId);
+		$html .= showPhonenumbers($userId, true);
 	}
+
+	$html .= "</p>";
+
 	return $html."</div>";
 }
 

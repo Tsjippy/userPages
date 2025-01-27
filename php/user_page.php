@@ -380,10 +380,11 @@ function showUserInfo($userId, $arrived){
 /**
  * Show the phone numbers of an user
  * @param	int		$userId		The WP_User id
+ * @param	bool	$clean		Wheter to add email and other html
  *
  * @return	string				The html
  */
-function showPhonenumbers($userId){
+function showPhonenumbers($userId, $clean=false){
 	$privacyPreference = (array)get_user_meta( $userId, 'privacy_preference', true );
 
 	$html = "";
@@ -400,9 +401,12 @@ function showPhonenumbers($userId){
 		$icon   .= '</svg>';
 
 
-		$html	.= "<p style='margin-bottom:0px'>";
-		$html	.= "<span style='font-size: 15px;'>Contact details below are only for you to use.<br>Do not share with other people.</span><br><br>";
-		$html	.= "E-mail: <a href='mailto:$email'>$email</a><br>";
+		if(!$clean){
+			$html	.= "<p style='margin-bottom:0px'>";
+			$html	.= "<span style='font-size: 15px;'>Contact details below are only for you to use.<br>Do not share with other people.</span><br><br>";
+			$html	.= "E-mail: <a href='mailto:$email'>$email</a><br>";
+		}
+
 		if(empty($phonenumbers)){
 			$html .= "Phone number: No phonenumber given<br><br>";
 		}elseif(count($phonenumbers) == 1){
@@ -422,7 +426,10 @@ function showPhonenumbers($userId){
 			}
 			$html .= "</ul>";
 		}
-		$html .= addVcardDownload($userId).'<br><br>';
+
+		if(!$clean){
+			$html .= addVcardDownload($userId).'<br><br>';
+		}
 	}
 
 	return $html;
