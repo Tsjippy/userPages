@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- layout
 
 ### Fixed
 
 ### Updated
+
+## [8.0.8] - 2025-02-04
+
+
+### Changed
+- layout
 
 ## [8.0.7] - 2025-01-27
 
