@@ -28,13 +28,8 @@ function moduleDescription($description, $moduleSlug){
 	return $description.ob_get_clean();
 }
 
-add_filter('sim_module_updated', __NAMESPACE__.'\moduleUpdated', 10, 3);
-function moduleUpdated($options, $moduleSlug, $oldOptions){
-	//module slug should be the same as grandparent folder name
-	if($moduleSlug != MODULE_SLUG){
-		return $options;
-	}
-
+add_filter('sim_module_userpages_after_save', __NAMESPACE__.'\moduleUpdated', 10, 2);
+function moduleUpdated($options, $oldOptions){
 	// Create account page
 	$options	= SIM\ADMIN\createDefaultPage($options, 'allcontacts_pages', 'All Users', '[all_contacts]', $oldOptions);
 
