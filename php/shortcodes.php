@@ -152,7 +152,7 @@ function allContacts(){
 			<div class='since-wrapper hidden'>
 				<label>
 					<input type='checkbox' name='since' value='last' checked>
-					Download new user details since last download (<?php echo date('d-m-Y', $lastDownload);?>)
+					Download new user details since last download (<?php echo date(DATEFORMAT, $lastDownload);?>)
 				</label>
 				<br>
 			</div>
