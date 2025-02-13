@@ -8,13 +8,8 @@ DEFINE(__NAMESPACE__.'\MODULE_SLUG', strtolower(basename(dirname(__DIR__))));
 
 DEFINE(__NAMESPACE__.'\MODULE_PATH', str_replace('\\', '/', plugin_dir_path(__DIR__)));
 
-add_filter('sim_submenu_description', __NAMESPACE__.'\moduleDescription', 10, 2);
+add_filter('sim_submenu_userpages_description', __NAMESPACE__.'\moduleDescription', 10, 2);
 function moduleDescription($description, $moduleSlug){
-	//module slug should be the same as the constant
-	if($moduleSlug != MODULE_SLUG)	{
-		return $description;
-	}
-
 	ob_start();
 	$url		= SIM\ADMIN\getDefaultPageLink($moduleSlug, 'allcontacts_pages');
 	if(!empty($url)){
@@ -46,13 +41,8 @@ function postStates( $states, $post ) {
 	return $states;
 }
 
-add_action('sim_module_deactivated', __NAMESPACE__.'\moduleDeActivated', 10, 2);
-function moduleDeActivated($moduleSlug, $options){
-	//module slug should be the same as grandparent folder name
-	if($moduleSlug != MODULE_SLUG)	{
-		return;
-	}
-
+add_action('sim_module_userpages_deactivated', __NAMESPACE__.'\moduleDeActivated');
+function moduleDeActivated($options){
 	foreach($options['allcontacts_pages'] as $page){
 		// Remove the auto created page
 		wp_delete_post($page, true);
