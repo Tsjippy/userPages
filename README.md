@@ -4,7 +4,7 @@
     This shortcode displays a button to download all registered users to store them as contacts in gmail or outtlook.<br>
     Use like this: <code>[all_contacts']</code>
     <br>
-    <h4>user_link</h4>
+    <h4>user-link</h4>
     This shortcode displays a user in a post or page.<br>
     It has 5 properties:<br>
     <ul>
@@ -14,6 +14,6 @@
         <li>'email' Whether the users e-mail addresses should be displayed or not.</li>
         <li>'style' Any additional html styling.</li>
     </ul>
-    Use like this: <code>[user_link id="12"]</code>
+    Use like this: <code>[user-link id="12"]</code>
     <br>
 </p>

@@ -248,7 +248,7 @@ function userDescription($userId){
 				}
 
 				$html .= SIM\displayProfilePicture($childdata->ID);
-			$html .= "<span class='person_work'> {$childdata->first_name} $age</span><br>";
+			$html .= "<span class='person-work'> {$childdata->first_name} $age</span><br>";
 			}
 			$html .= "</p>";
 		}
@@ -260,7 +260,7 @@ function userDescription($userId){
 					$siblingsData	= get_userdata($sibling);
 
 					$html .= SIM\displayProfilePicture($siblingsData->ID);
-				$html .= "<span class='person_work'> {$siblingsData->first_name}</span><br>";
+				$html .= "<span class='person-work'> {$siblingsData->first_name}</span><br>";
 				}
 			$html .= "</p>";
 		}
@@ -323,7 +323,7 @@ function userDescription($userId){
 	
 						$html	.= SIM\displayProfilePicture($siblingsData->ID);
 						$link	= getUserPageLink($siblingsData->ID);
-						$html	.= "<span class='person_work'> $link</span><br>";
+						$html	.= "<span class='person-work'> $link</span><br>";
 					}
 				$html .= "</p>";
 			}
@@ -365,7 +365,7 @@ function showUserInfo($userId, $arrived){
 			}
 
 			if(!isset($privacyPreference['hide_ministry']) & $arrived){
-				$html .= "<span class='person_work' $style> $displayname works with: </span><br>";
+				$html .= "<span class='person-work' $style> $displayname works with: </span><br>";
 				$html .= addMinistryLinks($userId);
 			}else{
 				$html .= "<span $style> $displayname</span><br>";
@@ -573,7 +573,7 @@ function addMinistryLinks($userId){
 			$page	= get_post($key);
 			if (!empty($page)){
 				$pageUrl = get_post_permalink($page->ID);
-				$pageUrl = "<a class='ministry_link' href='$pageUrl'>$page->post_title</a>";
+				$pageUrl = "<a class='ministry-link' href='$pageUrl'>$page->post_title</a>";
 			}elseif($key == -1){
 				$pageUrl = 'Also';
 			}else{
