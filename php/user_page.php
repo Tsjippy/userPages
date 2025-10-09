@@ -189,7 +189,7 @@ function userDescription($userId){
 	$address	= "No address provided.";
 	if(get_current_user_id() == $userId){
 		$url	= SIM\ADMIN\getDefaultPageLink('usermanagement', 'account_page');
-		$address	.= "Please update on the <a href='$url/?main_tab=generic_info#ministries'>Generic Info page</a>";
+		$address	.= "Please update on the <a href='$url/?main_tab=generic-info#ministries'>Generic Info page</a>";
 	}
 	if(is_array($location)){
 		if (empty($location["location"])){
@@ -587,7 +587,7 @@ function addMinistryLinks($userId){
 		$html	= "Ministry location(s) missing.";
 		if(get_current_user_id() == $userId){
 			$url	= SIM\ADMIN\getDefaultPageLink('usermanagement', 'account_page');
-			$html	.= "Please update on the <a href='$url/?main_tab=generic_info#ministries'>Generic Info page</a>";
+			$html	.= "Please update on the <a href='$url/?main_tab=generic-info#ministries'>Generic Info page</a>";
 		}
 	}
 
