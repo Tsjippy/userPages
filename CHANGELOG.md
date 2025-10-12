@@ -6,6 +6,7 @@
 ### Changed
 - classnames
 - data attribute names
+- main tab name
 
 ### Fixed
 - bugs
