@@ -11,7 +11,7 @@ DEFINE(__NAMESPACE__.'\MODULE_PATH', str_replace('\\', '/', plugin_dir_path(__DI
 add_filter('sim_submenu_userpages_description', __NAMESPACE__.'\moduleDescription', 10, 2);
 function moduleDescription($description, $moduleSlug){
 	ob_start();
-	$url		= SIM\ADMIN\getDefaultPageLink($moduleSlug, 'allcontacts_pages');
+	$url		= SIM\ADMIN\getDefaultPageLink($moduleSlug, 'all-contacts-pages');
 	if(!empty($url)){
 		?>
 		<p>
@@ -26,7 +26,7 @@ function moduleDescription($description, $moduleSlug){
 add_filter('sim_module_userpages_after_save', __NAMESPACE__.'\moduleUpdated', 10, 2);
 function moduleUpdated($options, $oldOptions){
 	// Create account page
-	$options	= SIM\ADMIN\createDefaultPage($options, 'allcontacts_pages', 'All Users', '[all_contacts]', $oldOptions);
+	$options	= SIM\ADMIN\createDefaultPage($options, 'all-contacts-pages', 'All Users', '[all_contacts]', $oldOptions);
 
 	return $options;
 }
@@ -34,7 +34,7 @@ function moduleUpdated($options, $oldOptions){
 add_filter('display_post_states', __NAMESPACE__.'\postStates', 10, 2);
 function postStates( $states, $post ) {
 
-	if ( in_array($post->ID, SIM\getModuleOption(MODULE_SLUG, 'allcontacts_pages', false)) ) {
+	if ( in_array($post->ID, SIM\getModuleOption(MODULE_SLUG, 'all-contacts-pages', false)) ) {
 		$states[] = __('Page showing all users');
 	}
 
@@ -43,7 +43,7 @@ function postStates( $states, $post ) {
 
 add_action('sim_module_userpages_deactivated', __NAMESPACE__.'\moduleDeActivated');
 function moduleDeActivated($options){
-	foreach($options['allcontacts_pages'] as $page){
+	foreach($options['all-contacts-pages'] as $page){
 		// Remove the auto created page
 		wp_delete_post($page, true);
 	}

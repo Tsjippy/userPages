@@ -35,7 +35,7 @@ function createUserPage($userId){
 		  'post_content'  => '',
 		  'post_status'   => 'publish',
 		  'post_type'	  => 'page',
-		  'post_parent'   => SIM\getModuleOption(MODULE_SLUG, 'allcontacts_pages')[0],
+		  'post_parent'   => SIM\getModuleOption(MODULE_SLUG, 'all-contacts-pages')[0],
 		);
 		
 		// Insert the post into the database
