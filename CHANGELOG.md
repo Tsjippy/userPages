@@ -4,14 +4,21 @@
 ### Added
 
 ### Changed
+
+### Fixed
+
+### Updated
+
+## [8.1.3] - 2025-10-13
+
+
+### Changed
 - classnames
 - data attribute names
 - main tab name
 
 ### Fixed
 - bugs
-
-### Updated
 
 ## [8.1.2] - 2025-09-24
 
