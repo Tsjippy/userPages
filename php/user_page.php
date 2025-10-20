@@ -157,7 +157,6 @@ function userDescription($userId){
 
 	//get the family details
 	$family	= SIM\getUserFamily($userId);
-	SIM\cleanUpNestedArray($family);
 
 	$privacyPreference = get_user_meta( $userId, 'privacy_preference', true );
 	if(!is_array($privacyPreference)){
