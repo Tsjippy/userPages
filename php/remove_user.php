@@ -4,7 +4,8 @@ use SIM;
 
 add_action('delete_user', __NAMESPACE__.'\userDeleted');
 function userDeleted($userId){
-    $partner = SIM\hasPartner($userId, true);
+    $family     = new SIM\FAMILY\Family();
+    $partner    = $family->getPartner($userId, true);
 
 	//Only remove if there is no family
 	if (!$partner){

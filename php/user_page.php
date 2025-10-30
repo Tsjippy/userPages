@@ -10,6 +10,8 @@ use SIM;
  * @return	int				WP_Post id
  */
 function createUserPage($userId){
+	$family		= new SIM\FAMILY\Family();
+
 	//get the current page
 	$pageId		= getUserPageId($userId);
 	$userdata   = get_userdata($userId);
@@ -24,8 +26,7 @@ function createUserPage($userId){
 		$pageId = null;
 	}
 
-	$family = SIM\familyFlatArray($userId);
-	$title 	= SIM\getFamilyName($userdata, true);
+	$title 	= $family->getFamilyName($userdata, true);
 
 	//Only create a page if the page does not exist
 	if ($pageId == null){
@@ -74,7 +75,7 @@ function createUserPage($userId){
 	}
 
 	//Add the post id to the user profile
-	SIM\updateFamilyMeta($userId, "user_page_id", $pageId);
+	$family->updateFamilyMeta($userId, "user_page_id", $pageId);
 
 	//Return the id
 	return $pageId;
@@ -155,9 +156,6 @@ function userDescription($userId){
 
 	do_action('sim_user_description', $user);
 
-	//get the family details
-	$family	= SIM\getUserFamily($userId);
-
 	$privacyPreference = get_user_meta( $userId, 'privacy_preference', true );
 	if(!is_array($privacyPreference)){
 		$privacyPreference = [];
@@ -201,17 +199,15 @@ function userDescription($userId){
 	}
 
 	//Build the html
-	//user has a family
-	$siblings	= [];
-	if(isset($family["siblings"])){
-		$siblings	= $family["siblings"];
-		unset($family["siblings"]);
-	}
-	unset($family["name"]);
-	if (!empty($family)){
+	$siblings	= get_user_meta( $userId, 'siblings' );
+	$picture	= get_user_meta( $userId, 'picture', true );
+	$partner	= get_user_meta( $userId, 'partner', true );
+	$children	= get_user_meta( $userId, 'children' );
+
+	if (!empty($partner)){
 		$html .= "<h1>$user->last_name family</h1>";
 
-		$url 	= wp_get_attachment_url($family['picture'][0]);
+		$url 	= wp_get_attachment_url($picture[0]);
 		if($url){
 			$html .= "<a href='$url'><img src='$url' loading='lazy' width=200 height=200></a>";
 		}
@@ -228,18 +224,18 @@ function userDescription($userId){
 		$html .= $arrivalHtml;
 
 		//Partner data
-		if (isset($family['partner']) && is_numeric($family['partner'])){
-			$html .= showUserInfo($family['partner'], $arrived);
+		if (is_numeric($partner)){
+			$html .= showUserInfo($partner, $arrived);
 		}
 
 		//User data
 		$html .= showUserInfo($userId, $arrived);
 
 		//Children
-		if (!empty($family["children"])){
+		if (!empty($children)){
 			$html .= "<p>";
 			$html .= " They have the following children:<br>";
-			foreach($family["children"] as $child){
+			foreach($children as $child){
 				$childdata	= get_userdata($child);
 				$age		= SIM\getAge($child, true);
 				if($age !== false){
@@ -266,8 +262,8 @@ function userDescription($userId){
 
 		$html .= showContent($userId);
 
-		if (isset($family['partner']) && is_numeric($family['partner'])){
-			$html .= showContent($family['partner']);
+		if (is_numeric($partner)){
+			$html .= showContent($partner);
 		}
 	//Single
 	}else{
@@ -468,13 +464,9 @@ function addVcardDownload($userId){
  * @return	string				The html
  */
 function buildVcard($userId){
+	$family = new SIM\FAMILY\Family();
 	//Get the user partner
-	$family = (array)get_user_meta( $userId, 'family', true );
-	if (isset($family['partner'])){
-		$partner = $family['partner'];
-	}else{
-		$partner = "";
-	}
+	$partner = $family->getPartner($userId, true);
 
 	$privacyPreference = (array)get_user_meta( $userId, 'privacy_preference', true );
 
@@ -525,10 +517,10 @@ function buildVcard($userId){
 		$vcard .= "GEO:geo:".$lat.",".$lon."\r\n";
 	}
 	$vcard .= "BDAY:".str_replace("-","",get_user_meta( $userId, "birthday", true ))."\r\n";
-	if ($partner != ""){
-		$vcard .= "item1.X-ABRELATEDNAMES:".get_userdata($partner)->data->display_name."\r\n";
+	if ($partner){
+		$vcard .= "item1.X-ABRELATEDNAMES:".$partner->display_name."\r\n";
 		$vcard .= 'item1.X-ABLabel:_$!<Spouse>!$_';
-		$vcard .= "X-SPOUSE:".get_userdata($partner)->data->display_name."\r\n";
+		$vcard .= "X-SPOUSE:".$partner->display_name."\r\n";
 	}
 
 	if ($gender != ""){
