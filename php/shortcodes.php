@@ -108,6 +108,8 @@ function allContacts(){
 		document.addEventListener('click', ev=>{
 			let target	= ev.target;
 			if(target.matches('.type-selector')){
+				ev.stopImmediatePropagation();
+
 				if(target.value == 'pdf'){
 					document.querySelectorAll('.since-wrapper').forEach(el=>el.classList.add('hidden'));
 				}else{
