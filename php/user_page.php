@@ -96,7 +96,7 @@ function getUserPageLink($user){
 		}
     }
 	
-    $url    = getUserPageUrl($user->ID);
+    $url    = getUserPageUrl(false, $user->ID);
     if($url){
         $html   = "<a href='$url'>$user->display_name</a>";
     }else{
@@ -617,7 +617,8 @@ function getUserPageId($userId){
  *
  * @return	string					user page url
 */
-function getUserPageUrl($userId){
+add_filter('sim-user-page-url', __NAMESPACE__.'\getUserPageUrl', 10, 2);
+function getUserPageUrl($url, $userId){
 	//Get the user page of this user
 	$userPageId = getUserPageId($userId);
 
@@ -625,7 +626,7 @@ function getUserPageUrl($userId){
         $userPageId = createUserPage($userId);
 
         if(!$userPageId){
-			return false;
+			return $url;
 		}
     }
 
