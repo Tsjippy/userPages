@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- getuserpagelink from filter
 
 ### Fixed
 
 ### Updated
+
+## [8.1.8] - 2025-12-01
+
+
+### Changed
+- getuserpagelink from filter
 
 ## [8.1.7] - 2025-11-03
 
