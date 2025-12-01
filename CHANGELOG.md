@@ -4,6 +4,7 @@
 ### Added
 
 ### Changed
+- getuserpagelink from filter
 
 ### Fixed
 
