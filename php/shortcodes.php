@@ -250,7 +250,7 @@ function linkedUserDescription($atts){
  */
 function createContactlistPdf($header, $data, $download=false) {
 	// Column headings
-	$widths = array(30, 45, 30, 47,45);
+	$widths = array(30, 45, 30, 47, 45);
 	
 	//Built frontpage
 	$pdf = new SIM\PDF\PdfHtml();
@@ -269,7 +269,7 @@ function createContactlistPdf($header, $data, $download=false) {
 			$fill = !$fill;
 		}
 
-		$pdf->writeTableRow($widths, $row, $fill,$header);
+		$pdf->writeTableRow($widths, $row, $fill, $header);
     }
     // Closing line
     $pdf->Cell(array_sum($widths), 0, '', 'T');
