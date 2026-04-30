@@ -1,6 +1,6 @@
 <?php
-namespace SIM\USERPAGES;
-use SIM;
+namespace TSJIPPY\USERPAGES;
+use TSJIPPY;
 
 //Shortcode to download all contact info
 add_shortcode("all_contacts", __NAMESPACE__.'\allContacts');
@@ -25,7 +25,7 @@ function allContacts(){
 
 		if($_REQUEST['type'] == "web"){
 			$vcard = "";
-			$users = SIM\getUserAccounts(false, $excludeChildren, true, ['ID']);
+			$users = TSJIPPY\getUserAccounts(false, $excludeChildren, true, ['ID']);
 			foreach($users as $user){
 				$lastChanged	= get_user_meta($user->ID, 'phone-last-changed', true);
 				if(
@@ -54,7 +54,7 @@ function allContacts(){
 			
 			if ($zip->open('SIMContacts.zip', \ZipArchive::CREATE) === true){
 				//Get all user accounts
-				$users = SIM\getUserAccounts(false, $excludeChildren, true, ['ID','display_name']);
+				$users = TSJIPPY\getUserAccounts(false, $excludeChildren, true, ['ID','display_name']);
 				
 				//Loop over the accounts and add their vcards
 				foreach($users as $user){
@@ -165,7 +165,7 @@ function allContacts(){
 		<br><br>
 		<p>Be patient, preparing the download can take a while. </p>
 		<?php
-		do_action('sim-after-download-contacts');
+		do_action('tsjippy-after-download-contacts');
 		?>
 	</div>
 	
@@ -198,7 +198,7 @@ function linkedUserDescription($atts){
 	$userdata		= get_userdata($userId);
 	$email			= $userdata->user_email;
 
-	$userId			= apply_filters('sim-user-description-user-id', $userId);
+	$userId			= apply_filters('tsjippy-user-description-user-id', $userId);
 
 	$userdata		= get_userdata($userId);
 	
@@ -217,11 +217,11 @@ function linkedUserDescription($atts){
 		}
 		$privacyPreference 	= (array)get_user_meta( $userId, 'privacy_preference', true );
 		
-		$url 				= SIM\maybeGetUserPageUrl($userId);
+		$url 				= TSJIPPY\maybeGetUserPageUrl($userId);
 		
 		$profilePicture	= '';
 		if($a['picture'] && !isset($privacyPreference['hide_profile_picture'])){
-			$profilePicture = SIM\displayProfilePicture($userId);
+			$profilePicture = TSJIPPY\displayProfilePicture($userId);
 		}
 		$html .= "<a href='$url'>$profilePicture $nickname $displayName</a><br>";
 		
@@ -253,7 +253,7 @@ function createContactlistPdf($header, $data, $download=false) {
 	$widths = array(30, 45, 30, 47, 45);
 	
 	//Built frontpage
-	$pdf = new SIM\PDF\PdfHtml();
+	$pdf = new TSJIPPY\PDF\PdfHtml();
 	$pdf->frontpage(SITENAME.' Contact List', date('F'));
 	$pdf->AddPage();
 	
@@ -279,7 +279,7 @@ function createContactlistPdf($header, $data, $download=false) {
 	$output		= 'F';
 	if($download === true){
 		// CLear the complete queue
-		SIM\clearOutput();
+		TSJIPPY\clearOutput();
 		$output		= 'D';
 	}elseif($download = 'screen'){
 		$pdf->printPdf();
@@ -319,7 +319,7 @@ function buildUserDetailPdf($download=true){
 		),
 	);
 	
-	$users = SIM\getUserAccounts(false, true, [], $args);
+	$users = TSJIPPY\getUserAccounts(false, true, [], $args);
 
 	//Loop over all users to add a row with their data to the table
 	$userDetails 	= [];
@@ -341,7 +341,7 @@ function buildUserDetailPdf($download=true){
 			$name .= "\n ($nickname)";
 		}
 
-		$profilePicture	= SIM\USERMANAGEMENT\getProfilePicturePath($user->ID);
+		$profilePicture	= TSJIPPY\USERMANAGEMENT\getProfilePicturePath($user->ID);
 		if($profilePicture){
 			$name	= [
 				'picture'	=> $profilePicture,

@@ -1,7 +1,7 @@
 <?php
-namespace SIM\USERPAGES;
+namespace TSJIPPY\USERPAGES;
 
-add_filter('sim-events-event-url', __NAMESPACE__.'\eventUrl', 10, 3);
+add_filter('tsjippy-events-event-url', __NAMESPACE__.'\eventUrl', 10, 3);
 function eventUrl($url, $userId, $object){
 
     if(is_numeric($userId)){

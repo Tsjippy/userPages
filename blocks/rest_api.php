@@ -1,6 +1,6 @@
 <?php
-namespace SIM\USERPAGES;
-use SIM;
+namespace TSJIPPY\USERPAGES;
+use TSJIPPY;
 
 add_action( 'rest_api_init',  __NAMESPACE__.'\restApiInit');
 function restApiInit() {

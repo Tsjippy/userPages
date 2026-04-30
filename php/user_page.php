@@ -1,6 +1,6 @@
 <?php
-namespace SIM\USERPAGES;
-use SIM;
+namespace TSJIPPY\USERPAGES;
+use TSJIPPY;
 
 /**
  * Create an user (family) page
@@ -10,7 +10,7 @@ use SIM;
  * @return	int				WP_Post id
  */
 function createUserPage($userId){
-	$family		= new SIM\FAMILY\Family();
+	$family		= new TSJIPPY\FAMILY\Family();
 
 	//get the current page
 	$pageId		= getUserPageId($userId);
@@ -36,7 +36,7 @@ function createUserPage($userId){
 		  'post_content'  => '',
 		  'post_status'   => 'publish',
 		  'post_type'	  => 'page',
-		  'post_parent'   => SIM\getModuleOption(MODULE_SLUG, 'all-contacts-pages')[0],
+		  'post_parent'   => SETTINGS['all-contacts-pages'] ?? [][0],
 		);
 		
 		// Insert the post into the database
@@ -48,7 +48,7 @@ function createUserPage($userId){
 		// make static
 		update_post_meta($pageId, 'static_content', true);
 
-		SIM\printArray("Created user page with id $pageId");
+		TSJIPPY\printArray("Created user page with id $pageId");
 	}else{
         updateUserPageTitle($userId, $title, $pageId);
 	}
@@ -69,7 +69,7 @@ function createUserPage($userId){
 				//Remove the current user page
 				wp_delete_post($memberPageId, true);
 
-				SIM\printArray("Removed user page with id $memberPageId because we only need one per family");
+				TSJIPPY\printArray("Removed user page with id $memberPageId because we only need one per family");
 			}
 		}
 	}
@@ -154,7 +154,7 @@ function userDescription($userId){
 
 	$user	= get_userdata($userId);
 
-	do_action('sim_user_description', $user);
+	do_action('tsjippy_user_description', $user);
 
 	$privacyPreference = get_user_meta( $userId, 'privacy_preference', true );
 	if(!is_array($privacyPreference)){
@@ -185,7 +185,7 @@ function userDescription($userId){
 	$location	= get_user_meta( $userId, 'location', true );
 	$address	= "No address provided.";
 	if(get_current_user_id() == $userId){
-		$url	= SIM\ADMIN\getDefaultPageLink('usermanagement', 'account_page');
+		$url	= TSJIPPY\ADMIN\getDefaultPageLink('usermanagement', 'account_page');
 		$address	.= "Please update on the <a href='$url/?main-tab=generic-info#ministries'>Generic Info page</a>";
 	}
 	if(is_array($location)){
@@ -237,12 +237,12 @@ function userDescription($userId){
 			$html .= " They have the following children:<br>";
 			foreach($children as $child){
 				$childdata	= get_userdata($child);
-				$age		= SIM\getAge($child, true);
+				$age		= TSJIPPY\getAge($child, true);
 				if($age !== false){
 					$age = "($age)";
 				}
 
-				$html .= SIM\displayProfilePicture($childdata->ID);
+				$html .= TSJIPPY\displayProfilePicture($childdata->ID);
 			$html .= "<span class='person-work'> {$childdata->first_name} $age</span><br>";
 			}
 			$html .= "</p>";
@@ -254,7 +254,7 @@ function userDescription($userId){
 				foreach($siblings as $sibling){
 					$siblingsData	= get_userdata($sibling);
 
-					$html .= SIM\displayProfilePicture($siblingsData->ID);
+					$html .= TSJIPPY\displayProfilePicture($siblingsData->ID);
 				$html .= "<span class='person-work'> {$siblingsData->first_name}</span><br>";
 				}
 			$html .= "</p>";
@@ -278,7 +278,7 @@ function userDescription($userId){
 
 			$html	.= "<h1>";
 				if(!isset($privacyPreference['hide_profile_picture'])){
-					$html .= SIM\displayProfilePicture($userId);
+					$html .= TSJIPPY\displayProfilePicture($userId);
 				}
 				$html	.= "  $displayname";
 			$html	.= "</h1>";
@@ -316,7 +316,7 @@ function userDescription($userId){
 					foreach($siblings as $sibling){
 						$siblingsData	= get_userdata($sibling);
 	
-						$html	.= SIM\displayProfilePicture($siblingsData->ID);
+						$html	.= TSJIPPY\displayProfilePicture($siblingsData->ID);
 						$link	= getUserPageLink($siblingsData->ID);
 						$html	.= "<span class='person-work'> $link</span><br>";
 					}
@@ -353,7 +353,7 @@ function showUserInfo($userId, $arrived){
 
 		$html .= "<p>";
 			if(empty($privacyPreference['hide_profile_picture'])){
-				$html .= SIM\displayProfilePicture($userId);
+				$html .= TSJIPPY\displayProfilePicture($userId);
 				$style = "";
 			}else{
 				$style = ' style="margin-left: 55px;"';
@@ -464,7 +464,7 @@ function addVcardDownload($userId){
  * @return	string				The html
  */
 function buildVcard($userId){
-	$family = new SIM\FAMILY\Family();
+	$family = new TSJIPPY\FAMILY\Family();
 	//Get the user partner
 	$partner = $family->getPartner($userId, true);
 
@@ -533,7 +533,7 @@ function buildVcard($userId){
 
 	//User has an profile picture add it
 	if (is_numeric(get_user_meta($userId, 'profile_picture', true)) && empty($privacyPreference['hide_profile_picture'])){
-		$pictureUrl				= SIM\USERMANAGEMENT\getProfilePictureUrl($userId, "large");
+		$pictureUrl				= TSJIPPY\USERMANAGEMENT\getProfilePictureUrl($userId, "large");
 		if($pictureUrl){
 			$pictureUrl 			= str_replace(wp_upload_dir()['url'], wp_upload_dir()['basedir'], $pictureUrl);
 			$photo               	= file_get_contents($pictureUrl);
@@ -577,7 +577,7 @@ function addMinistryLinks($userId){
 	if(empty($html)){
 		$html	= "Ministry location(s) missing.";
 		if(get_current_user_id() == $userId){
-			$url	= SIM\ADMIN\getDefaultPageLink('usermanagement', 'account_page');
+			$url	= TSJIPPY\ADMIN\getDefaultPageLink('usermanagement', 'account_page');
 			$html	.= "Please update on the <a href='$url/?main-tab=generic-info#ministries'>Generic Info page</a>";
 		}
 	}
@@ -617,7 +617,7 @@ function getUserPageId($userId){
  *
  * @return	string					user page url
 */
-add_filter('sim-user-page-url', __NAMESPACE__.'\getUserPageUrl', 10, 2);
+add_filter('tsjippy-user-page-url', __NAMESPACE__.'\getUserPageUrl', 10, 2);
 function getUserPageUrl($url, $userId){
 	//Get the user page of this user
 	$userPageId = getUserPageId($userId);
@@ -639,7 +639,7 @@ function getUserPageUrl($url, $userId){
  * @param	int			$userId		WP_user id
  */
 function showContent($userId){
-	wp_enqueue_style( 'sim_show_user_content_style', SIM\pathToUrl(MODULE_PATH.'css/usercontent.min.css'), array(), MODULE_VERSION);
+	wp_enqueue_style( 'tsjippy_show_user_content_style', TSJIPPY\pathToUrl(PLUGINPATH.'css/usercontent.min.css'), array(), PLUGINVERSION);
 
 	$posts = get_posts(
 		array(
