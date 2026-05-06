@@ -1,12 +1,12 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 2,
+  "apiVersion": 3,
   "name": "tsjippy/linkeduserdescription",
   "version": "0.1.0",
   "title": "Linked user",
   "category": "widgets",
   "description": "Show the details of an user",
-  "textdomain": "sim",
+  "textdomain": "tsjippy",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css"
