@@ -3,10 +3,9 @@ namespace TSJIPPY\USERPAGES;
 use TSJIPPY;
 
 add_filter('tsjippy_transform_formtable_data', __NAMESPACE__.'\formtableData', 10, 2);
-function formtableData($string, $elementName){
-    if($elementName == 'user-id'){
-			
-        $output				= getUserPageLink($string);
+function formtableData($string, $elementSlug){
+    if($elementSlug == 'user-id'){
+        $output		= getUserPageLink($string);
         if($output){
             $string	= $output;
         }
