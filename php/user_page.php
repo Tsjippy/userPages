@@ -185,7 +185,10 @@ function userDescription($userId){
 	$location	= get_user_meta( $userId, 'location', true );
 	$address	= "No address provided.";
 	if(get_current_user_id() == $userId){
-		$url	= TSJIPPY\ADMIN\getDefaultPageLink('usermanagement', 'account_page');
+		$url                    = get_permalink(SETTINGS['account_page'] ?? '');
+        if(!$url){
+            $url = '';
+        }
 		$address	.= "Please update on the <a href='$url/?main-tab=generic-info#ministries'>Generic Info page</a>";
 	}
 	if(is_array($location)){
@@ -577,7 +580,14 @@ function addMinistryLinks($userId){
 	if(empty($html)){
 		$html	= "Ministry location(s) missing.";
 		if(get_current_user_id() == $userId){
-			$url	= TSJIPPY\ADMIN\getDefaultPageLink('usermanagement', 'account_page');
+			$url	= '';
+			if(defined('TSJIPPY\USERMANAGEMENT\SETTINGS')){
+				$url   = get_permalink(TSJIPPY\USERMANAGEMENT\SETTINGS['account_page'] ?? '');
+
+				if(!$url){
+					$url	= '';
+				}
+			}
 			$html	.= "Please update on the <a href='$url/?main-tab=generic-info#ministries'>Generic Info page</a>";
 		}
 	}
