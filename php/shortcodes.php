@@ -299,8 +299,6 @@ function createContactlistPdf($header, $data, $download=false) {
  * @return string pdf path
  */
 function buildUserDetailPdf($download=true){
-	//Change the user to the adminaccount otherwise get_users will not work
-	wp_set_current_user(1);
 		
 	//Sort users on last name, then on first name
 	$args = array(
