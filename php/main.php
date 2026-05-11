@@ -58,3 +58,21 @@ function userDeleted($userId){
         updateUserPageTitle($partner->ID, $title);
     }
 }
+
+add_filter('signal-admin-display-name', __NAMESPACE__.'\getSenderDisplayName', 10, 2);
+/**
+ * Get the display name of the sender of a message. This is used in the admin menu of the signal plugin to show the name of the sender instead of the phone number
+ * @param string $displayName The display name of the sender
+ * @param WP_User $user The user object of the sender
+ * 
+ * @return string The display name of the sender
+ */
+function getSenderDisplayName($displayName, $user){
+    $sender	= getUserPageLink($user->ID);
+
+    if(!$sender){
+        return $displayName;
+    }
+
+    return $sender;
+}
