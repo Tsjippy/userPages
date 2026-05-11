@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- removed admin login for cron
 
 ### Fixed
 
 ### Updated
+
+## [10.0.6] - 2026-05-11
+
+
+### Changed
+- removed admin login for cron
 
 ## [10.0.5] - 2026-05-11
 
