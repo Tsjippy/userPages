@@ -7,6 +7,7 @@
 - permission callback for rest api
 
 ### Fixed
+- user page storage
 
 ### Updated
 
