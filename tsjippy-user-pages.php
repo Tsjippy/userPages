@@ -40,7 +40,7 @@ register_activation_hook( __FILE__, function(){
 
 	$settings['all-contacts-page']	= TSJIPPY\ADMIN\createDefaultPage('All Users', '[all_contacts]');
 
-	update_option('tsjippy_'.PLUGINSLUG.'_settings', SETTINGS);
+	update_option('tsjippy_'.PLUGINSLUG.'_settings', $settings);
 } );
 
 // run on deactivation

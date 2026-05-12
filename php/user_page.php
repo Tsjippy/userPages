@@ -22,31 +22,34 @@ function createUserPage($userId){
 	}
 
 	//Check if this page exists and is published
-	if(get_post_status ($pageId) != 'publish' ){
+	if(!empty($pageId) && get_post_status ($pageId) != 'publish' ){
 		$pageId = null;
 	}
 
 	$title 	= $family->getFamilyName($userdata, true);
 
 	//Only create a page if the page does not exist
-	if ($pageId == null){
+	if (empty($pageId)){
 		// Create post object
 		$userPage = array(
 		  'post_title'    => $title,
 		  'post_content'  => '',
 		  'post_status'   => 'publish',
 		  'post_type'	  => 'page',
-		  'post_parent'   => SETTINGS['all-contacts-pages'] ?? [][0],
+		  'post_parent'   => SETTINGS['all-contacts-page'] ?? 0,
 		);
 		
 		// Insert the post into the database
 		$pageId = wp_insert_post( $userPage );
 
-		//Save user id as meta
+		//Save user id as meta to the post
 		update_post_meta($pageId, 'user_id', $userId);
 
 		// make static
 		update_post_meta($pageId, 'static_content', true);
+
+		// Store for the user
+		update_user_meta($userId, "user_page_id", $pageId);
 
 		TSJIPPY\printArray("Created user page with id $pageId");
 	}else{
