@@ -13,7 +13,9 @@ function restApiInit() {
 			'callback' 				=> function(){
 				return linkedUserDescription($_REQUEST);
 			},
-			'permission_callback' 	=> '__return_true',
+			'permission_callback' 	=> function(){
+				return current_user_can('read');
+			},
 		)
 	);
 }

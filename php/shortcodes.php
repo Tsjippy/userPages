@@ -176,6 +176,12 @@ function allContacts(){
 // Shortcode to display a user in a page or post
 add_shortcode('user_link', __NAMESPACE__.'\linkedUserDescription');
 
+/**
+ * Displays a link to a user's profile page with optional contact information.
+ *
+ * @param array $atts The shortcode attributes.
+ * @return string The HTML for the user link.
+ */
 function linkedUserDescription($atts){
 	$html 	= "";
 	$a 		= shortcode_atts( array(
@@ -187,10 +193,10 @@ function linkedUserDescription($atts){
     ), $atts );
 
 	$a['picture']	= filter_var($a['picture'], FILTER_VALIDATE_BOOLEAN);
-	$a['phone']	= filter_var($a['phone'], FILTER_VALIDATE_BOOLEAN);
-	$a['email']	= filter_var($a['email'], FILTER_VALIDATE_BOOLEAN);
+	$a['phone']		= filter_var($a['phone'], FILTER_VALIDATE_BOOLEAN);
+	$a['email']		= filter_var($a['email'], FILTER_VALIDATE_BOOLEAN);
 	
-	$userId = $a['id'];
+	$userId 		= $a['id'];
     if(!is_numeric($userId)){
 		return 'Please enter an user to show the details of';
 	}
@@ -281,7 +287,7 @@ function createContactlistPdf($header, $data, $download=false) {
 		// CLear the complete queue
 		TSJIPPY\clearOutput();
 		$output		= 'D';
-	}elseif($download = 'screen'){
+	}elseif($download == 'screen'){
 		$pdf->printPdf();
 		return '';
 	}else{
