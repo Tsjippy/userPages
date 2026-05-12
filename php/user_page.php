@@ -338,6 +338,7 @@ function userDescription($userId){
 /**
  * Shows the user name and details
  * @param	int		$userId		The WP_User id
+ * @param	bool	$arrived	Whether the user has arrived in the country yet, to determine whether to show certain details
  *
  * @return	string				The html
  */
@@ -597,6 +598,12 @@ function addMinistryLinks($userId){
 
 // Add description if the current page is attached to a user id
 add_filter( 'the_content', __NAMESPACE__.'\addUserDescription');
+/**
+ * Adds a user description to the content
+ *
+ * @param string $content The content
+ * @return string The revised content
+ */
 function addUserDescription( $content ) {
 	if (is_user_logged_in()){
 		$postId 	= get_the_ID();
@@ -615,7 +622,7 @@ function addUserDescription( $content ) {
  * Gets the page id describing an user
  * @param	int 		$userId		WP_user id
  *
- * @return	int|WP_Error			The page id
+ * @return	int|\WP_Error			The page id
 */
 function getUserPageId($userId){
     return get_user_meta($userId, "user_page_id", true);
@@ -628,6 +635,13 @@ function getUserPageId($userId){
  * @return	string					user page url
 */
 add_filter('tsjippy-user-page-url', __NAMESPACE__.'\getUserPageUrl', 10, 2);
+/**
+ * Gets the URL of the user's description page
+ *
+ * @param string $url The default URL
+ * @param int $userId The WP_user id
+ * @return string The revised URL
+ */
 function getUserPageUrl($url, $userId){
 	//Get the user page of this user
 	$userPageId = getUserPageId($userId);
