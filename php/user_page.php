@@ -175,7 +175,7 @@ function userDescription($userId){
 	$arrived		= true;
 	if(!empty($arrivalDate) && !isset($privacyPreference['hide_anniversary'])){
 		$arrivalEpoch	= strtotime($arrivalDate);
-		$arrivalDate	= date('F Y', $arrivalEpoch);
+		$arrivalDate	= gmdate('F Y', $arrivalEpoch);
 		if($arrivalEpoch < time()){
 			$arrivalHtml 	= "<p>In the country since $arrivalDate</p>";
 		}else{

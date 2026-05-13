@@ -154,7 +154,7 @@ function allContacts(){
 			<div class='since-wrapper hidden'>
 				<label>
 					<input type='checkbox' name='since' value='last' checked>
-					Download new user details since last download (<?php echo date(DATEFORMAT, $lastDownload);?>)
+					Download new user details since last download (<?php echo gmdate(DATEFORMAT, $lastDownload);?>)
 				</label>
 				<br>
 			</div>
@@ -260,7 +260,7 @@ function createContactlistPdf($header, $data, $download=false) {
 	
 	//Built frontpage
 	$pdf = new TSJIPPY\PDF\PdfHtml();
-	$pdf->frontpage(SITENAME.' Contact List', date('F'));
+	$pdf->frontpage(SITENAME.' Contact List', gmdate('F'));
 	$pdf->AddPage();
 	
 	//Write the table headers
